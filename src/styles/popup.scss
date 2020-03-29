@@ -76,6 +76,17 @@ body {
   background: $blue;
   color: #fff;
   text-align: left;
+  display: inline-grid;
+  grid-template-columns: 50% 50%;
+}
+
+#footer-left, #footer-right {
+  display: flex;
+}
+
+#footer-right {
+  text-align: right;
+  margin-left: auto;
 }
 
 #footer a {

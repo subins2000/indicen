@@ -1,15 +1,15 @@
 import browser from 'webextension-polyfill';
 
-document.getElementById('transliterate').innerHTML = 'a';
 document.addEventListener('DOMContentLoaded', async () => {
   const lang_elem = document.getElementById('lang');
 
   // Restore options
   browser.storage.sync.get('lang').then((result) => {
-    lang_elem.selectedIndex = document.querySelector(`[value=${result.lang}]`).index;
+    if (result.lang.length === 2)
+      lang_elem.selectedIndex = document.querySelector(`[value=${result.lang}]`).index;
+  }, (err) => {
+    console.log(err);
   });
-
-  document.getElementById('transliterate').innerHTML = 'a';
 
   const tabs = await browser.tabs.query({
     active: true,

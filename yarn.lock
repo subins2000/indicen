@@ -4001,6 +4001,11 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+libindic-transliteration@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/libindic-transliteration/-/libindic-transliteration-1.0.0.tgz#160f077b22537361ad29b88ff4c8907ee8e001e0"
+  integrity sha512-oAkulfKGUJogMa5kY+EDTec82gVaFjVk1869anvl51R9WYxiFTkTO36DSfLyw0gf/9eh69m0M6nN0YhvlUXjzg==
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
