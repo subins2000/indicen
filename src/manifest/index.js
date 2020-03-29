@@ -59,7 +59,7 @@ const manifestInput = {
 
     content_scripts: [
         {
-            matches: ['http://*/*', 'https://*/*'],
+            matches: ['http://*/*', 'https://*/*', 'file://*/*'],
             js: ['js/contentScript.bundle.js'],
         },
     ],
