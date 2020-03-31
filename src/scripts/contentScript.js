@@ -1,7 +1,7 @@
 import browser from 'webextension-polyfill';
 import Transliterator from 'libindic-transliteration';
 
-function transliterate_webpage(lang) {
+function transliterate_elem_content(elem, lang) {
   const t = new Transliterator();
 
   var transliterate = (input) => {
@@ -28,9 +28,45 @@ function transliterate_webpage(lang) {
     }
   };
 
-  replace_text_in_node(document.body);
+  replace_text_in_node(elem);
 }
 
 browser.runtime.onMessage.addListener(request => {
-  transliterate_webpage(request.lang);
+  transliterate_elem_content(document.body, result.lang);
+});
+
+// Auto transliterate
+browser.storage.sync.get('auto').then((result) => {
+  if (result.auto) {
+    let lang = 'ml';
+    browser.storage.sync.get('lang').then((result) => {
+      lang = result.lang;
+      transliterate_elem_content(document.body, result.lang);
+    });
+
+    // Create an observer instance linked to the callback function
+    let observer = new MutationObserver(mutationsList => {
+      console.log(mutationsList)
+      for (let mutation of mutationsList) {
+        if (mutation.type == 'childList') {
+          for (let elem of mutation.addedNodes) {
+            transliterate_elem_content(elem, lang);
+          }
+        }
+      }
+    });
+
+    // Start observing the target node for configured mutations
+    observer.observe(
+      document.body,
+      {
+        characterData: false,
+        attributes: false,
+        childList: true,
+        subtree: false
+      }
+    );
+  }
+}, (err) => {
+  console.log(err);
 });

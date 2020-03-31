@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log(err);
   });
 
+  browser.storage.sync.get('auto').then((result) => {
+    document.getElementById('auto_transliterate').checked = result.auto;
+  }, (err) => {
+    console.log(err);
+  });
+
   const tabs = await browser.tabs.query({
     active: true,
     lastFocusedWindow: true,
@@ -26,9 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         {
           lang: lang
         }
-      ).then(response => {
-        console.log("Message from the content script:");
-      }).catch(error => {
+      ).catch(error => {
         console.log(error);
       });
     }
@@ -38,6 +42,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     lang = lang_elem.value;
     browser.storage.sync.set({
       lang: lang
+    });
+  });
+
+  document.getElementById('auto_transliterate').addEventListener('change', () => {
+    browser.storage.sync.set({
+      auto: document.getElementById('auto_transliterate').checked
     });
   });
 });

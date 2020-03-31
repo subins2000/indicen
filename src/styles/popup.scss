@@ -68,6 +68,11 @@ body {
   #transliterate {
     margin: 20px 0 0;
   }
+
+  #auto_holder * {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 #footer {
@@ -78,23 +83,23 @@ body {
   text-align: left;
   display: inline-grid;
   grid-template-columns: 50% 50%;
-}
 
-#footer-left, #footer-right {
-  display: flex;
-}
+  #footer-left, #footer-right {
+    display: flex;
+  }
 
-#footer-right {
-  text-align: right;
-  margin-left: auto;
-}
+  #footer-right {
+    text-align: right;
+    margin-left: auto;
+  }
 
-#footer a {
-  border-bottom: 3px dotted #fff;
-  cursor: pointer;
-  color: #fff;
-}
+  a {
+    border-bottom: 3px dotted #fff;
+    cursor: pointer;
+    color: #fff;
+  }
 
-#goto-donate {
-  float: right;
+  #goto-donate {
+    float: right;
+  }
 }
