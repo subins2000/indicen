@@ -24,10 +24,6 @@ const manifestInput = {
         name: 'subins2000',
     },
 
-    __firefox__applications: {
-        gecko: { id: '{754FB1AD-CC3B-4856-B6A0-7786F8CA9D17}' },
-    },
-
     __chrome__minimum_chrome_version: '49',
     __opera__minimum_opera_version: '36',
 
