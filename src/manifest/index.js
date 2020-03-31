@@ -14,7 +14,7 @@ const manifestInput = {
 
     description: 'Convert Malayalam, Hindi, Kannada webpages to Manglish, Hinglish, Kanglish.',
     homepage_url: 'https://subinsb.com/indicen',
-    short_name: 'Sample Name',
+    short_name: 'Indic-En',
 
     permissions: ['activeTab', 'storage', 'http://*/*', 'https://*/*'],
     content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'",
@@ -39,7 +39,7 @@ const manifestInput = {
             '48': 'assets/icons/favicon-48.png',
             '128': 'assets/icons/favicon-128.png',
         },
-        default_title: 'tiny title',
+        default_title: 'Indic-En',
         '__chrome|opera__chrome_style': false,
         __firefox__browser_style: false,
     },
@@ -50,11 +50,6 @@ const manifestInput = {
         page: 'options.html',
         open_in_tab: true,
         __chrome__chrome_style: false,
-    },
-
-    background: {
-        scripts: ['js/background.bundle.js'],
-        '__chrome|opera__persistent': false,
     },
 
     content_scripts: [
