@@ -52,6 +52,11 @@ const manifestInput = {
         __chrome__chrome_style: false,
     },
 
+    background: {
+        scripts: ['js/background.bundle.js'],
+        '__chrome|opera__persistent': false,
+    },
+
     content_scripts: [
         {
             matches: ['http://*/*', 'https://*/*', 'file://*/*'],

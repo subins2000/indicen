@@ -40,8 +40,10 @@ function transliterate_elem_content(elem, lang) {
   replace_text_in_node(elem);
 }
 
+// On popup button click
 browser.runtime.onMessage.addListener(request => {
-  transliterate_elem_content(document.body, result.lang);
+  transliterate_elem_content(document.body, request.lang);
+  return Promise.resolve();
 });
 
 // Auto transliterate
