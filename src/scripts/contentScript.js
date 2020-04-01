@@ -58,7 +58,6 @@ function transliterate_elem_content(elem, lang) {
          * Only does transliteration if it has characters from the lang
          * Checking for best performance
          */
-        console.log(has_lang(node.textContent, lang));
         if (has_lang(node.textContent, lang)) {
           node.textContent = transliterate(node.textContent);
         }
@@ -83,14 +82,12 @@ browser.storage.sync.get('auto').then((result) => {
   if (result.auto) {
     let lang = 'ml';
     browser.storage.sync.get('lang').then((result) => {
-      console.log(result);
       lang = result.lang;
       transliterate_elem_content(document.body, result.lang);
     });
 
     // Create an observer instance linked to the callback function
     let observer = new MutationObserver(mutationsList => {
-      console.log(mutationsList)
       for (let mutation of mutationsList) {
         if (mutation.type == 'childList') {
           for (let elem of mutation.addedNodes) {

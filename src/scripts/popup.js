@@ -47,16 +47,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  lang_elem.addEventListener('change', () => {
-    lang = lang_elem.value;
-    browser.storage.sync.set({
-      lang: lang
-    });
-  });
-
-  document.getElementById('auto_transliterate').addEventListener('change', () => {
+  var save_settings = () => {
     browser.storage.sync.set({
       auto: document.getElementById('auto_transliterate').checked
     });
+    browser.storage.sync.set({
+      lang: lang
+    });
+  }
+
+  lang_elem.addEventListener('change', () => {
+    lang = lang_elem.value;
+    save_settings();
+  });
+
+  document.getElementById('auto_transliterate').addEventListener('change', () => {
+    save_settings();
   });
 });
