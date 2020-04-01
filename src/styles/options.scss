@@ -44,3 +44,28 @@ ul {
   list-style: disc;
   margin-left: 30px;
 }
+
+@media screen and (max-width: 1600px) {
+  #container {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .block {
+    display: block;
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #container {
+    width: 98%;
+  }
+}
