@@ -89,7 +89,7 @@ browser.storage.sync.get('auto').then((result) => {
     // Create an observer instance linked to the callback function
     let observer = new MutationObserver(mutationsList => {
       for (let mutation of mutationsList) {
-        if (mutation.type == 'childList') {
+        if (mutation.type === 'childList') {
           for (let elem of mutation.addedNodes) {
             transliterate_elem_content(elem, lang);
           }
@@ -104,7 +104,7 @@ browser.storage.sync.get('auto').then((result) => {
         characterData: false,
         attributes: false,
         childList: true,
-        subtree: false
+        subtree: true
       }
     );
   }
