@@ -61,6 +61,7 @@ const manifestInput = {
         {
             matches: ['http://*/*', 'https://*/*', 'file://*/*'],
             js: ['js/contentScript.bundle.js'],
+            all_frames: true,
         },
     ],
 };
