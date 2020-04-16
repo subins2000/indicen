@@ -60,7 +60,7 @@ function transliterate_elem_content(elem, lang) {
   var document = elem.ownerDocument;
   
   var nodes = [],
-    regex = new RegExp('[\u0D00-\u0D7F](.*?)[\.|?|!|,|;|:]', 'g'), // \u0D00-\u0D7F
+    regex = new RegExp('[\u0D00-\u0D7F].*?[\.|?|!|,|;|:]', 'g'), // \u0D00-\u0D7F
     text = "",
     node,
     nodeIterator = document.createNodeIterator(elem, NodeFilter.SHOW_TEXT, null, false);
@@ -121,7 +121,6 @@ function transliterate_elem_content(elem, lang) {
       var spanNode = document.createElement("span");
       spanNode.className = "highlight";
       
-      node.textNode.textContent = transliterate(node.textNode.textContent, lang)
       node.textNode.parentNode.replaceChild(spanNode, node.textNode);
       spanNode.appendChild(node.textNode);
     }
