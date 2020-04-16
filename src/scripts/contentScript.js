@@ -11,6 +11,9 @@ import browser from 'webextension-polyfill';
 import Transliterator from 'libindic-transliteration';
 
 
+let t,
+    debug = sessionStorage.getItem('indicen_debug') || false;
+
 /**
  * Check if input has characters from a particular language
  * @param str input Input string
@@ -35,45 +38,113 @@ function has_lang(input, lang) {
   return false;
 }
 
-function transliterate_elem_content(elem, lang) {
-  const t = new Transliterator();
+var transliterated_nodes = {};
 
-  var transliterate = (input) => {
-    if (lang === 'ml') {
-      return t.transliterate_ml_en(input);
-    } else if (lang === 'hi') {
-      return t.transliterate_hi_en(input);
-    } else {
-      return t.transliterate_kn_en(input);
+function transliterate(input, lang) {
+  if (lang === 'ml') {
+    return t.transliterate_ml_en(input);
+  } else if (lang === 'hi') {
+    return t.transliterate_hi_en(input);
+  } else {
+    return t.transliterate_kn_en(input);
+  }
+}
+
+if (debug) {
+  sessionStorage.setItem('indicen_time_elapsed', 0);
+}
+
+function transliterate_elem_content(elem, lang) {
+  if (debug) { var time = performance.now(); }
+
+  var document = elem.ownerDocument;
+  
+  var nodes = [],
+    regex = new RegExp('[\u0D00-\u0D7F](.*?)[\.|?|!|,|;|:]', 'g'), // \u0D00-\u0D7F
+    text = "",
+    node,
+    nodeIterator = document.createNodeIterator(elem, NodeFilter.SHOW_TEXT, null, false);
+    
+  while (node = nodeIterator.nextNode()) {
+    if (!has_lang(node.nodeValue, lang)) { continue; }
+    nodes.push({
+      textNode: node,
+      start: text.length
+    });
+    text += node.nodeValue
+  }
+
+  if (!nodes.length)
+    return;
+
+  var match;
+  while (match = regex.exec(text)) {
+    var matchLength = match[0].length;
+    
+    // Prevent empty matches causing infinite loops        
+    if (!matchLength)
+    {
+      regex.lastIndex++;
+      continue;
+    }
+    
+    for (var i = 0; i < nodes.length; ++i) {
+      node = nodes[i];
+      var nodeLength = node.textNode.nodeValue.length;
+      
+      // Skip nodes before the match
+      if (node.start + nodeLength <= match.index)
+        continue;
+    
+      // Break after the match
+      if (node.start >= match.index + matchLength)
+        break;
+      
+      // Split the start node if required
+      if (node.start < match.index) {
+        nodes.splice(i + 1, 0, {
+          textNode: node.textNode.splitText(match.index - node.start),
+          start: match.index
+        });
+        continue;
+      }
+      
+      // Split the end node if required
+      if (node.start + nodeLength > match.index + matchLength) {
+        nodes.splice(i + 1, 0, {
+          textNode: node.textNode.splitText(match.index + matchLength - node.start),
+          start: match.index + matchLength
+        });
+      }
+      
+      // Highlight the current node
+      var spanNode = document.createElement("span");
+      spanNode.className = "highlight";
+      
+      node.textNode.textContent = transliterate(node.textNode.textContent, lang)
+      node.textNode.parentNode.replaceChild(spanNode, node.textNode);
+      spanNode.appendChild(node.textNode);
     }
   }
 
-  var replace_text_in_node = (parent_node) => {
-    for (let i = parent_node.childNodes.length - 1; i >= 0; i--){
-      let node = parent_node.childNodes[i];
+  if (debug) {
+    sessionStorage.setItem('indicen_time_elapsed', parseFloat(sessionStorage.getItem('indicen_time_elapsed')) + (performance.now() - time));
+    console.log(sessionStorage.getItem('indicen_time_elapsed'))
+  }
+}
 
-      //  Make sure this is a text node
-      if (node.nodeType === Element.TEXT_NODE || node.nodeType === Element.DOCUMENT_NODE){
-        /**
-         * Only does transliteration if it has characters from the lang
-         * Checking for best performance
-         */
-        if (has_lang(node.textContent, lang)) {
-          node.textContent = transliterate(node.textContent);
-        }
-      } else if (node.nodeType === Element.ELEMENT_NODE){
-        //  Check this node's child nodes for text nodes to act on
-        replace_text_in_node(node);
-      }
-    }
-  };
+function transliterate_webpage(lang) {
+  t = new Transliterator();
+  transliterate_elem_content(document.body, lang);
 
-  replace_text_in_node(elem);
+  document.body.addEventListener('mouseover', (e) => {
+    //console.log(e.target);
+  });
 }
 
 // On popup button click
 browser.runtime.onMessage.addListener(request => {
-  transliterate_elem_content(document.body, request.lang);
+  transliterate_webpage(request.lang);
   return Promise.resolve();
 });
 
@@ -83,7 +154,7 @@ browser.storage.sync.get('auto').then((result) => {
     let lang = 'ml';
     browser.storage.sync.get('lang').then((result) => {
       lang = result.lang;
-      transliterate_elem_content(document.body, result.lang);
+      transliterate_webpage(lang);
     });
 
     // Create an observer instance linked to the callback function
