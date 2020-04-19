@@ -38,8 +38,6 @@ function has_lang(input, lang) {
   return false;
 }
 
-var transliterated_nodes = {};
-
 function transliterate(input, lang) {
   if (lang === 'ml') {
     return t.transliterate_ml_en(input);
@@ -54,16 +52,28 @@ if (debug) {
   sessionStorage.setItem('indicen_time_elapsed', 0);
 }
 
+var transliterated_nodes = {},
+    transliterated_nodes_index = 0;
+
 function transliterate_elem_content(elem, lang) {
   if (debug) { var time = performance.now(); }
-
-  var document = elem.ownerDocument;
   
   var nodes = [],
-    regex = new RegExp('[\u0D00-\u0D7F].*?[\.|?|!|,|;|:]', 'g'), // \u0D00-\u0D7F
+    regex = new RegExp('[\u0D00-\u0D7F].*?[.!?;:]', 'g'), // \u0D00-\u0D7F
     text = "",
     node,
-    nodeIterator = document.createNodeIterator(elem, NodeFilter.SHOW_TEXT, null, false);
+    nodeIterator = elem.ownerDocument.createNodeIterator(
+      elem,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function(node) {
+          if (node.parentNode && node.parentNode.nodeName !== 'SCRIPT') {
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        }
+      },
+      false
+    );
     
   while (node = nodeIterator.nextNode()) {
     if (!has_lang(node.nodeValue, lang)) { continue; }
@@ -119,11 +129,21 @@ function transliterate_elem_content(elem, lang) {
       
       // Highlight the current node
       var spanNode = document.createElement("span");
-      spanNode.className = "highlight";
+      spanNode.className = "indicened";
+      spanNode.dataset.id = transliterated_nodes_index
+
+      transliterated_nodes[transliterated_nodes_index] = node.textNode.textContent
+      transliterated_nodes_index++
       
       node.textNode.parentNode.replaceChild(spanNode, node.textNode);
       spanNode.appendChild(node.textNode);
     }
+  }
+
+  nodes = elem.getElementsByClassName('indicened')
+  for (var i = 0; i < nodes.length; ++i) {
+    node = nodes[i];
+    node.textContent = transliterate(node.textContent, lang)
   }
 
   if (debug) {
@@ -136,8 +156,9 @@ function transliterate_webpage(lang) {
   t = new Transliterator();
   transliterate_elem_content(document.body, lang);
 
+  // This makes sure it's desktop
   document.body.addEventListener('mouseover', (e) => {
-    //console.log(e.target);
+    
   });
 }
 
@@ -154,29 +175,29 @@ browser.storage.sync.get('auto').then((result) => {
     browser.storage.sync.get('lang').then((result) => {
       lang = result.lang;
       transliterate_webpage(lang);
-    });
 
-    // Create an observer instance linked to the callback function
-    let observer = new MutationObserver(mutationsList => {
-      for (let mutation of mutationsList) {
-        if (mutation.type === 'childList') {
-          for (let elem of mutation.addedNodes) {
-            transliterate_elem_content(elem, lang);
+      // Create an observer instance linked to the callback function
+      let observer = new MutationObserver(mutationsList => {
+        for (let mutation of mutationsList) {
+          if (mutation.type === 'childList') {
+            for (let elem of mutation.addedNodes) {
+              transliterate_elem_content(elem, lang);
+            }
           }
         }
-      }
-    });
+      });
 
-    // Start observing the target node for configured mutations
-    observer.observe(
-      document.body,
-      {
-        characterData: false,
-        attributes: false,
-        childList: true,
-        subtree: true
-      }
-    );
+      // Start observing the target node for configured mutations
+      observer.observe(
+        document.body,
+        {
+          characterData: false,
+          attributes: false,
+          childList: true,
+          subtree: true
+        }
+      );
+    });
   }
 }, (err) => {
   console.log(err);
