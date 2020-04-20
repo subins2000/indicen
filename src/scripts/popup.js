@@ -29,21 +29,46 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log(err);
   });
 
-  const tabs = await browser.tabs.query({
-    active: true,
-    lastFocusedWindow: true,
+  // There will be only one active tab
+  let tab = await browser.tabs.query({
+    active: true
   });
+  tab = tab[0]
 
   document.getElementById('transliterate').addEventListener('click', async () => {
-    for (let tab of tabs) {
-      browser.tabs.sendMessage(
-        tab.id,
-        {
-          lang: lang
-        }
-      ).catch(error => {
-        console.log(error);
-      });
+    browser.tabs.sendMessage(
+      tab.id,
+      {
+        lang: lang
+      }
+    ).catch(error => {
+      console.log(error);
+    });
+    document.getElementById('transliterate').style.display = 'none'
+    document.getElementById('untransliterate').style.display = 'inline'
+  });
+
+  document.getElementById('untransliterate').addEventListener('click', async () => {
+    browser.tabs.sendMessage(
+      tab.id,
+      {
+        untransliterate: true
+      }
+    );
+    document.getElementById('transliterate').style.display = 'inline'
+    document.getElementById('untransliterate').style.display = 'none'
+  });
+
+  // Check if page transliterated (auto mode on)
+  browser.tabs.sendMessage(
+    tab.id,
+    {
+      transliterated_webpage: '?'
+    }
+  ).then(transliterated_webpage => {
+    if (transliterated_webpage) {
+      document.getElementById('transliterate').style.display = 'none'
+      document.getElementById('untransliterate').style.display = 'inline'
     }
   });
 

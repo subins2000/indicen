@@ -69,8 +69,12 @@ select:hover {
     }
   }
 
-  #transliterate {
+  #transliterate, #untransliterate {
     margin: 20px 0 0;
+  }
+
+  #untransliterate {
+    display: none;
   }
 
   #auto_holder * {

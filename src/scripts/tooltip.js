@@ -11,11 +11,11 @@
  * Released under the MIT license
  */
 
-let tooltip, elm_edges, tooltip_text;
+var tooltip = null, elm_edges, tooltip_text, event_listener;
 
 var Tooltip = {
     init: function(data_attr_name) {
-        var tooltip = document.createElement('div')
+        tooltip = document.createElement('div')
         tooltip.className = 'indicen-tooltip-container indicen-no-display'
         tooltip.innerHTML = '<div class="indicen-text"></div><a class="indicen-credit" href="https://subinsb.com/indicen/" target="_blank">Indic-En</a>'
         document.body.appendChild(tooltip)
@@ -34,7 +34,8 @@ var Tooltip = {
         var timeout = null
             hide_timeout = null,
             cur_highlighted = null
-        document.addEventListener('mouseover', (e) => {
+
+        event_listener = document.addEventListener('mouseover', (e) => {
             clearInterval(timeout)
             clearInterval(hide_timeout)
 
@@ -54,7 +55,7 @@ var Tooltip = {
                     cur_highlighted = document.getElementById('indicen-highlight')
                     if (cur_highlighted)
                         cur_highlighted.id = ''
-                    
+
                     hideTooltip()
                 }
             }, 200);
@@ -100,6 +101,11 @@ var Tooltip = {
             tooltip.style.left = centered + 'px';
             tooltip.style.top = elm_top + 'px';
         }
+    },
+    destroy: function() {
+        if (tooltip)
+            tooltip.remove();
+        document.removeEventListener('mouseover', event_listener);
     }
 };
 

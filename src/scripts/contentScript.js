@@ -13,7 +13,9 @@ import Tooltip from './tooltip.js';
 
 
 let t,
-    debug = sessionStorage.getItem('indicen_debug') || false;
+    debug = sessionStorage.getItem('indicen_debug') || false,
+    transliterated_webpage = false,
+    observer = null;
 
 /**
  * Check if input has characters from a particular language
@@ -52,9 +54,6 @@ function transliterate(input, lang) {
 if (debug) {
   sessionStorage.setItem('indicen_time_elapsed', 0);
 }
-
-var transliterated_nodes = {},
-    transliterated_nodes_index = 0;
 
 function transliterate_elem_content(elem, lang) {
   if (debug) { var time = performance.now(); }
@@ -156,17 +155,39 @@ function transliterate_webpage(lang) {
 
   // To detect if desktop
   let onMouseOver = async (e) => {
-    //transliterated_nodes[e.target.dataset.id]
     Tooltip.init('indicenoriginal')
     document.removeEventListener('mouseover', onMouseOver)
   }
   document.addEventListener('mouseover', onMouseOver);
+
+  transliterated_webpage = true
+}
+
+function untransliterate_webpage() {
+  Tooltip.destroy()
+
+  if (observer)
+    observer.disconnect()
+
+  var nodes = document.getElementsByClassName('indicened'),
+      node;
+
+  console.log(nodes)
+
+  for (let i = 0;i < nodes.length;i++) {
+    node = nodes[i];
+    node.innerText = node.dataset.indicenoriginal;
+  }
 }
 
 // On popup button click
 browser.runtime.onMessage.addListener(request => {
-  transliterate_webpage(request.lang);
-  return Promise.resolve();
+  if (request.lang)
+    transliterate_webpage(request.lang);
+  else if (request.untransliterate)
+    untransliterate_webpage();
+  else
+    return Promise.resolve(transliterated_webpage)
 });
 
 // Auto transliterate
@@ -178,7 +199,7 @@ browser.storage.sync.get('auto').then((result) => {
       transliterate_webpage(lang);
 
       // Create an observer instance linked to the callback function
-      let observer = new MutationObserver(mutationsList => {
+      observer = new MutationObserver(mutationsList => {
         for (let mutation of mutationsList) {
           if (
             mutation.type === 'childList' &&
