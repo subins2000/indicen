@@ -14,17 +14,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   var lang = 'ml';
 
   // Restore options
-  browser.storage.sync.get('lang').then((result) => {
+  browser.storage.sync.get({
+    auto: false,
+    overlay: true,
+    lang: lang
+  }).then((result) => {
+    document.getElementById('auto_transliterate').checked = result.auto;
+    document.getElementById('overlay').checked = result.overlay;
+
     if (result.lang.length === 2) {
       lang = result.lang;
       lang_elem.selectedIndex = document.querySelector(`[value=${lang}]`).index;
     }
-  }, (err) => {
-    console.log(err);
-  });
-
-  browser.storage.sync.get('auto').then((result) => {
-    document.getElementById('auto_transliterate').checked = result.auto;
   }, (err) => {
     console.log(err);
   });
@@ -74,9 +75,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   var save_settings = () => {
     browser.storage.sync.set({
-      auto: document.getElementById('auto_transliterate').checked
-    });
-    browser.storage.sync.set({
+      auto: document.getElementById('auto_transliterate').checked,
+      overlay: document.getElementById('overlay').checked,
       lang: lang
     });
   }
@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   document.getElementById('auto_transliterate').addEventListener('change', () => {
+    save_settings();
+  });
+  document.getElementById('overlay').addEventListener('change', () => {
     save_settings();
   });
 });

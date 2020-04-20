@@ -77,9 +77,10 @@ select:hover {
     display: none;
   }
 
-  #auto_holder * {
+  .checkbox_holder * {
     display: inline-block;
     vertical-align: middle;
+    margin-right: 5px;
   }
 }
 

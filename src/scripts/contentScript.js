@@ -12,10 +12,16 @@ import Transliterator from 'libindic-transliteration';
 import Tooltip from './tooltip.js';
 
 
-let t,
+var t,
     debug = sessionStorage.getItem('indicen_debug') || false,
     transliterated_webpage = false,
-    observer = null;
+    observer = null,
+    langCodes = {
+      'ml': [3328, 3455, '0D00', '0D7F'], // 0x0D00 to 0x0D7F
+      'hi': [2304, 2431, '0900', '097F'], // 0x0900 to 0x097F
+      'kn': [3200, 3327, '0C80', '0CFF'] // 0x0C80 to 0x0CFF
+    },
+    overlay = false;
 
 /**
  * Check if input has characters from a particular language
@@ -24,11 +30,6 @@ let t,
  */
 function has_lang(input, lang) {
   let charCode = 0,
-      langCodes = {
-        'ml': [3328, 3455], // 0x0D00 to 0x0D7F
-        'hi': [2304, 2431], // 0x0900 to 0x097F
-        'kn': [3200, 3327] // 0x0C80 to 0x0CFF
-      },
       start = langCodes[lang][0],
       end = langCodes[lang][1];
 
@@ -57,9 +58,9 @@ if (debug) {
 
 function transliterate_elem_content(elem, lang) {
   if (debug) { var time = performance.now(); }
-  
+
   var nodes = [],
-    regex = new RegExp('[\u0D00-\u0D7F].*?[.!?,;:\n\'"]', 'g'), // \u0D00-\u0D7F
+    regex = new RegExp('[\\u'+ langCodes[lang][2] +'-\\u'+ langCodes[lang][3] +'].*?[.!?,;:\n\'"]', 'g'), // \u0D00-\u0D7F
     text = "",
     node,
     nodeIterator = elem.ownerDocument.createNodeIterator(
@@ -174,7 +175,7 @@ function transliterate_webpage(lang) {
   transliterate_elem_content(document.body, lang);
 
   // This will only run in desktop
-  if (!detectMob()) {
+  if (overlay && !detectMob()) {
     let onMouseOver = async (e) => {
       Tooltip.init('indicenoriginal')
       document.removeEventListener('mouseover', onMouseOver)
@@ -202,22 +203,17 @@ function untransliterate_webpage() {
   transliterated_webpage = false
 }
 
-// On popup button click
-browser.runtime.onMessage.addListener(request => {
-  if (request.lang)
-    transliterate_webpage(request.lang);
-  else if (request.untransliterate)
-    untransliterate_webpage();
-  else
-    return Promise.resolve(transliterated_webpage)
-});
+function init() {
+  // Auto transliterate
+  browser.storage.sync.get({
+    auto: false,
+    overlay: true,
+    lang: 'ml'
+  }).then((result) => {
+    var lang = result.lang;
+    overlay = result.overlay;
 
-// Auto transliterate
-browser.storage.sync.get('auto').then((result) => {
-  if (result.auto) {
-    let lang = 'ml';
-    browser.storage.sync.get('lang').then((result) => {
-      lang = result.lang;
+    if (result.auto) {
       transliterate_webpage(lang);
 
       // Create an observer instance linked to the callback function
@@ -226,6 +222,7 @@ browser.storage.sync.get('auto').then((result) => {
           if (
             mutation.type === 'childList' &&
             mutation.target.className !== 'indicened' &&
+            mutation.target.parentNode &&
             mutation.target.parentNode.className.indexOf('indicen-tooltip-container') === -1
           ) {
             for (let elem of mutation.addedNodes) {
@@ -245,8 +242,22 @@ browser.storage.sync.get('auto').then((result) => {
           subtree: true
         }
       );
-    });
+    }
+  }, (err) => {
+    console.log(err);
+  });
+}
+
+// On popup button click
+browser.runtime.onMessage.addListener(request => {
+  if (request.lang) {
+    init()
+    transliterate_webpage(request.lang);
+  } else if (request.untransliterate) {
+    untransliterate_webpage();
+  } else {
+    return Promise.resolve(transliterated_webpage)
   }
-}, (err) => {
-  console.log(err);
 });
+
+init()
