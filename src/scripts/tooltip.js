@@ -39,8 +39,6 @@ var Tooltip = {
             clearInterval(timeout)
             clearInterval(hide_timeout)
 
-            console.log('a')
-
             timeout = setTimeout(() => {
                 if (e.target.dataset[data_attr_name] !== undefined) {
                     cur_highlighted = document.getElementById('indicen-highlight')
@@ -83,7 +81,7 @@ var Tooltip = {
     position: function(tooltip, elm) {
         // 10 = arrow height
         const elm_top = elm_edges.top + window.scrollY + elm_edges.height;
-        const viewport_edges = window.innerWidth - 100;
+        const viewport_edges = window.innerWidth;
 
         // Position tooltip on the left side of the elm if the elm touches
         // the viewports right edge and elm width is < 50px.
@@ -105,11 +103,18 @@ var Tooltip = {
             tooltip.style.left = centered + 'px';
             tooltip.style.top = elm_top + 'px';
         }
+
+        if (parseInt(tooltip.style.left) < 0)
+            tooltip.style.left = '10px';
     },
     destroy: function() {
         if (tooltip) {
             tooltip.remove();
             document.removeEventListener('mouseover', event_listener);
+
+            let cur_highlighted = document.getElementById('indicen-highlight')
+            if (cur_highlighted)
+                cur_highlighted.id = ''
         }
     }
 };

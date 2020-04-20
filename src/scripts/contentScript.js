@@ -149,16 +149,38 @@ function transliterate_elem_content(elem, lang) {
   }
 }
 
+/**
+ * Thanks Michael Zaporozhets
+ * https://stackoverflow.com/a/11381730
+ */
+function detectMob() {
+  const toMatch = [
+    /Android/i,
+    /webOS/i,
+    /iPhone/i,
+    /iPad/i,
+    /iPod/i,
+    /BlackBerry/i,
+    /Windows Phone/i
+  ];
+
+  return toMatch.some((toMatchItem) => {
+    return navigator.userAgent.match(toMatchItem);
+  });
+}
+
 function transliterate_webpage(lang) {
   t = new Transliterator();
   transliterate_elem_content(document.body, lang);
 
-  // To detect if desktop
-  let onMouseOver = async (e) => {
-    Tooltip.init('indicenoriginal')
-    document.removeEventListener('mouseover', onMouseOver)
+  // This will only run in desktop
+  if (!detectMob()) {
+    let onMouseOver = async (e) => {
+      Tooltip.init('indicenoriginal')
+      document.removeEventListener('mouseover', onMouseOver)
+    }
+    document.addEventListener('mouseover', onMouseOver);
   }
-  document.addEventListener('mouseover', onMouseOver);
 
   transliterated_webpage = true
 }
@@ -171,8 +193,6 @@ function untransliterate_webpage() {
 
   var nodes = document.getElementsByClassName('indicened'),
       node;
-
-  console.log(nodes)
 
   for (let i = 0;i < nodes.length;i++) {
     node = nodes[i];

@@ -16,15 +16,16 @@
 .indicen-tooltip-container {
   transform: translateZ(0);
   position: absolute;
-  max-width: 90%;
+  max-width: 40%;
   padding: 8px 10px 10px;
   font-family: "Ubuntu", sans-serif;
-  font-size: 1rem;
+  font-size: 0.9vw;
   background-color: #fff;
   color: #000;
   border: 1px solid #000;
   border-radius: 4px;
   opacity: 1;
+  z-index: 999999999;
 
   -webkit-box-shadow: 2px 2px 4px #9999aa;
   -moz-box-shadow: 2px 2px 4px #9999aa;
@@ -72,18 +73,26 @@
 
   .indicen-text:before {
     content: "original text :";
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     display: block;
     color: #737373;
-    font-size: 90%;
+    font-size: 0.9vw;
+  }
+
+  .indicen-text {
+    font-size: 1.1vw;
+    line-height: 1.3vw;
   }
 
   .indicen-credit {
     display: block;
-    margin-top: 15px;
+    margin-top: 5px;
     text-decoration: underline;
-    font-weight: bold;
     color: #000;
+    background: url('https://raw.githubusercontent.com/subins2000/indicen/master/src/assets/icons/favicon-48.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 10px 45px;
   }
 }
 
