@@ -11,7 +11,7 @@
  * Released under the MIT license
  */
 
-var tooltip = null, elm_edges, tooltip_text, event_listener;
+var tooltip = null, elm_edges, tooltip_text, event_listener = null;
 
 var Tooltip = {
     init: function(data_attr_name) {
@@ -35,9 +35,11 @@ var Tooltip = {
             hide_timeout = null,
             cur_highlighted = null
 
-        event_listener = document.addEventListener('mouseover', (e) => {
+        event_listener = (e) => {
             clearInterval(timeout)
             clearInterval(hide_timeout)
+
+            console.log('a')
 
             timeout = setTimeout(() => {
                 if (e.target.dataset[data_attr_name] !== undefined) {
@@ -59,7 +61,9 @@ var Tooltip = {
                     hideTooltip()
                 }
             }, 200);
-        })
+        };
+
+        document.addEventListener('mouseover', event_listener);
     },
     create: function(tooltip, elm, data_attr_name) {
         // elm_edges relative to the viewport.
@@ -103,9 +107,10 @@ var Tooltip = {
         }
     },
     destroy: function() {
-        if (tooltip)
+        if (tooltip) {
             tooltip.remove();
-        document.removeEventListener('mouseover', event_listener);
+            document.removeEventListener('mouseover', event_listener);
+        }
     }
 };
 

@@ -178,6 +178,8 @@ function untransliterate_webpage() {
     node = nodes[i];
     node.innerText = node.dataset.indicenoriginal;
   }
+
+  transliterated_webpage = false
 }
 
 // On popup button click
