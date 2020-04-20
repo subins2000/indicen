@@ -60,7 +60,7 @@ function transliterate_elem_content(elem, lang) {
   if (debug) { var time = performance.now(); }
   
   var nodes = [],
-    regex = new RegExp('[\u0D00-\u0D7F].*?[.!?;:]', 'g'), // \u0D00-\u0D7F
+    regex = new RegExp('[\u0D00-\u0D7F].*?[.!?,;:\n\'"]', 'g'), // \u0D00-\u0D7F
     text = "",
     node,
     nodeIterator = elem.ownerDocument.createNodeIterator(
