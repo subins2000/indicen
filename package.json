@@ -1,12 +1,12 @@
 {
-  "name": "web-extension-starter",
-  "version": "1.0.1",
-  "description": "Web extension starter",
+  "name": "indicen",
+  "version": "2.0",
+  "description": "Indic-En WebExtension",
   "private": true,
   "main": "src/scripts/background.js",
-  "repository": "https://github.com/abhijithvijayan/web-extension-starter.git",
-  "author": "abhijithvijayan <34790378+abhijithvijayan@users.noreply.github.com>",
-  "license": "MIT",
+  "repository": "https://gitlab.com/subins2000/indicen",
+  "author": "subins2000",
+  "license": "GPL-3.0",
   "engines": {
     "node": ">=10",
     "yarn": ">= 1.0.0"

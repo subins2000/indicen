@@ -59,6 +59,10 @@ if (debug) {
 function transliterate_elem_content(elem, lang) {
   if (debug) { var time = performance.now(); }
 
+  /**
+   * Thank you so much Lucas Trzesniewski !
+   * https://stackoverflow.com/a/31369978/1372424
+   */
   var nodes = [],
     regex = new RegExp('[\\u'+ langCodes[lang][2] +'-\\u'+ langCodes[lang][3] +'].*?[.!?,;:\n\'"]', 'g'), // \u0D00-\u0D7F
     text = "",
