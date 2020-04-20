@@ -1,6 +1,6 @@
-.indicen-highlight {
-  background-color: #2196f3;
-  color: #fff;
+#indicen-highlight {
+  background-color: #b4deff;
+  color: #000;
   -webkit-box-shadow: 2px 2px 4px #9999aa;
   -moz-box-shadow: 2px 2px 4px #9999aa;
   box-shadow: 2px 2px 4px #9999aa;
@@ -16,11 +16,13 @@
 .indicen-tooltip-container {
   transform: translateZ(0);
   position: absolute;
-  max-width: 100%;
+  max-width: 90%;
   padding: 8px 10px 10px;
+  font-family: "Ubuntu", sans-serif;
   font-size: 1rem;
   background-color: #fff;
   color: #000;
+  border: 1px solid #000;
   border-radius: 4px;
   opacity: 1;
 
@@ -68,9 +70,19 @@
     border-color: transparent transparent #2d2d2d transparent;
   }
 
+  .indicen-text:before {
+    content: "original text :";
+    margin-bottom: 10px;
+    display: block;
+    color: #737373;
+    font-size: 90%;
+  }
+
   .indicen-credit {
-    margin-top: 20px;
-    
+    display: block;
+    margin-top: 10px;
+    text-decoration: underline;
+    font-weight: bold;
   }
 }
 

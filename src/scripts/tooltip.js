@@ -15,9 +15,9 @@ let tooltip, elm_edges, tooltip_text;
 
 var Tooltip = {
     init: function(data_attr_name) {
-        let tooltip = document.createElement('div')
+        var tooltip = document.createElement('div')
         tooltip.className = 'indicen-tooltip-container indicen-no-display'
-        tooltip.innerHTML = '<div></div><div class="indicen-credit">Indic-En</div>'
+        tooltip.innerHTML = '<div class="indicen-text"></div><a class="indicen-credit" href="https://subinsb.com/indicen/" target="_blank">Indic-En</a>'
         document.body.appendChild(tooltip)
 
         function showTooltip(evt) {
@@ -31,32 +31,35 @@ var Tooltip = {
             tooltip.removeAttribute('style');
         }
 
-        var last_target = null,
-            timeout = null
+        var timeout = null
+            hide_timeout = null,
+            cur_highlighted = null
         document.addEventListener('mouseover', (e) => {
             clearInterval(timeout)
+            clearInterval(hide_timeout)
+
             timeout = setTimeout(() => {
                 if (e.target.dataset[data_attr_name] !== undefined) {
-                    e.target.classList.add('indicen-highlight')
+                    cur_highlighted = document.getElementById('indicen-highlight')
+                    if (cur_highlighted)
+                        cur_highlighted.id = ''
 
-                    last_target = e.target
-
+                    e.target.id = 'indicen-highlight'
                     showTooltip(e)
                 }
             }, 700);
 
-            if (e.target !== tooltip) {
-                if (last_target)
-                    last_target.classList.remove('indicen-highlight')
-
-                hideTooltip()
-            }
+            hide_timeout = setTimeout(() => {
+                if (e.target.className.indexOf('indicen') === -1) {
+                    document.getElementById('indicen-highlight').id = ''
+                    hideTooltip()
+                }
+            }, 200);
         })
     },
     create: function(tooltip, elm, data_attr_name) {
         // elm_edges relative to the viewport.
         elm_edges = elm.getBoundingClientRect();
-        console.log(tooltip)
         tooltip.firstChild.innerText = elm.dataset[data_attr_name];
 
         // Remove no-display + set the correct classname based on the position
@@ -71,7 +74,7 @@ var Tooltip = {
     },
     position: function(tooltip, elm) {
         // 10 = arrow height
-        const elm_top = elm_edges.top + elm_edges.height;
+        const elm_top = elm_edges.top + window.scrollY + elm_edges.height;
         const viewport_edges = window.innerWidth - 100;
 
         // Position tooltip on the left side of the elm if the elm touches
