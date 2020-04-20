@@ -51,7 +51,10 @@ var Tooltip = {
 
             hide_timeout = setTimeout(() => {
                 if (e.target.className.indexOf('indicen') === -1) {
-                    document.getElementById('indicen-highlight').id = ''
+                    cur_highlighted = document.getElementById('indicen-highlight')
+                    if (cur_highlighted)
+                        cur_highlighted.id = ''
+                    
                     hideTooltip()
                 }
             }, 200);
