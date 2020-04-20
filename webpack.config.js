@@ -51,7 +51,7 @@ module.exports = {
         contentScript: './src/scripts/contentScript.js',
         popup: './src/scripts/popup.js',
         options: './src/scripts/options.js',
-        styles: ['./src/styles/popup.scss', './src/styles/options.scss'],
+        styles: ['./src/styles/popup.scss', './src/styles/options.scss', './src/styles/contentStyle.scss'],
     },
 
     output: {

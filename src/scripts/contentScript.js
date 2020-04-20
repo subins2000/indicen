@@ -9,6 +9,7 @@
 
 import browser from 'webextension-polyfill';
 import Transliterator from 'libindic-transliteration';
+import Tooltip from './tooltip.js';
 
 
 let t,
@@ -130,10 +131,7 @@ function transliterate_elem_content(elem, lang) {
       // Highlight the current node
       var spanNode = document.createElement("span");
       spanNode.className = "indicened";
-      spanNode.dataset.id = transliterated_nodes_index
-
-      transliterated_nodes[transliterated_nodes_index] = node.textNode.textContent
-      transliterated_nodes_index++
+      spanNode.dataset.indicenoriginal = node.textNode.textContent
       
       node.textNode.parentNode.replaceChild(spanNode, node.textNode);
       spanNode.appendChild(node.textNode);
@@ -156,10 +154,13 @@ function transliterate_webpage(lang) {
   t = new Transliterator();
   transliterate_elem_content(document.body, lang);
 
-  // This makes sure it's desktop
-  document.body.addEventListener('mouseover', (e) => {
-    
-  });
+  // To detect if desktop
+  let onMouseOver = async (e) => {
+    //transliterated_nodes[e.target.dataset.id]
+    Tooltip.init('indicenoriginal')
+    document.removeEventListener('mouseover', onMouseOver)
+  }
+  document.addEventListener('mouseover', onMouseOver);
 }
 
 // On popup button click
@@ -179,7 +180,11 @@ browser.storage.sync.get('auto').then((result) => {
       // Create an observer instance linked to the callback function
       let observer = new MutationObserver(mutationsList => {
         for (let mutation of mutationsList) {
-          if (mutation.type === 'childList') {
+          if (
+            mutation.type === 'childList' &&
+            mutation.target.className !== 'indicened' &&
+            mutation.target.parentNode.className.indexOf('indicen-tooltip-container') === -1
+          ) {
             for (let elem of mutation.addedNodes) {
               transliterate_elem_content(elem, lang);
             }

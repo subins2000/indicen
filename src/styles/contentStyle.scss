@@ -1,0 +1,121 @@
+.indicen-highlight {
+  background-color: #2196f3;
+  color: #fff;
+  -webkit-box-shadow: 2px 2px 4px #9999aa;
+  -moz-box-shadow: 2px 2px 4px #9999aa;
+  box-shadow: 2px 2px 4px #9999aa;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.indicen-no-display {
+  display: none;
+}
+
+.indicen-tooltip-container {
+  transform: translateZ(0);
+  position: absolute;
+  max-width: 100%;
+  padding: 8px 10px 10px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #000;
+  border-radius: 4px;
+  opacity: 1;
+
+  -webkit-box-shadow: 2px 2px 4px #9999aa;
+  -moz-box-shadow: 2px 2px 4px #9999aa;
+  box-shadow: 2px 2px 4px #9999aa;
+
+  &[class*=" tooltip-"] {
+    -webkit-animation: tooltip-anim 0.8s;
+    -moz-animation: tooltip-anim 0.8s;
+    -o-animation: tooltip-anim 0.8s;
+    animation: tooltip-anim 0.8s;
+  }
+
+  &::after {
+    position: absolute;
+    display: block;
+    content: "";
+  }
+
+  &.tooltip-left::after {
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 6px 0 6px 8px;
+    border-color: transparent transparent transparent #2d2d2d;
+  }
+
+  &.tooltip-right::after {
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-style: solid;
+    border-width: 6px 8px 6px 0;
+    border-color: transparent #2d2d2d transparent transparent;
+  }
+
+  &.tooltip-center::after {
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-style: solid;
+    border-width: 0 6px 8px 6px;
+    border-color: transparent transparent #2d2d2d transparent;
+  }
+
+  .indicen-credit {
+    margin-top: 20px;
+    
+  }
+}
+
+@keyframes tooltip-anim {
+  0% {
+    opacity: 0;
+    transform: matrix(0.5, 0, 0, 0.8, 0, 0);
+  }
+
+  20% {
+    transform: matrix(1.1, 0, 0, 1.1, 0, 0);
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  70% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+
+  100% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+}
+
+@-webkit-keyframes tooltip-anim {
+  0% {
+    opacity: 0;
+    transform: matrix(0.5, 0, 0, 0.8, 0, 0);
+  }
+
+  20% {
+    transform: matrix(1.1, 0, 0, 1.1, 0, 0);
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  70% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+
+  100% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+}
