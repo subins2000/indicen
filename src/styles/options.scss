@@ -14,12 +14,16 @@ body {
   width: 50%;
 }
 
-h1, h2, h3, p, textarea {
+h1,
+h2,
+h3,
+p,
+textarea {
   margin: 20px 0;
 }
 
 textarea {
-  display:block;
+  display: block;
   padding: 10px 20px;
   width: 100%;
   overflow-y: auto;
