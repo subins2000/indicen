@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.8.7",
+    "advanced-css-reset": "^1.1.1",
     "libindic-transliteration": "^1.1.0",
     "webextension-polyfill": "^0.6.0",
     "wext-manifest": "^2.1.0"
