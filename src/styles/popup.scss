@@ -36,7 +36,7 @@ select {
   border-radius: 20px;
   border: 1px solid #aaa;
   box-sizing: border-box;
-  box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, .04);
   border-radius: .5em;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -69,7 +69,8 @@ select:hover {
     }
   }
 
-  #transliterate, #untransliterate {
+  #transliterate,
+  #untransliterate {
     margin: 20px 0 0;
   }
 
@@ -93,7 +94,8 @@ select:hover {
   display: inline-grid;
   grid-template-columns: 50% 50%;
 
-  #footer-left, #footer-right {
+  #footer-left,
+  #footer-right {
     display: flex;
   }
 

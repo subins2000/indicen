@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Popup</title>
-    <link rel="stylesheet" href="css/popup.css" />
-  </head>
-  <body>
-    <section id="popup">
-      <select id="lang">
-          <option value="ml">Malayalam</option>
-          <option value="hi">Hindi</option>
-          <option value="kn">Kannada</option>
-      </select><br/>
-      <button type="button" id="transliterate">Transliterate</button>
-      <button type="button" id="untransliterate">Restore</button><br/><br/>
-      <div class="checkbox_holder">
-        <input type="checkbox" id="auto_transliterate" />
-        <label for="auto_transliterate">Auto Transliterate on page load</label>
-      </div><br/>
-      <div class="checkbox_holder">
-        <input type="checkbox" id="overlay" />
-        <label for="overlay">Show Overlays with original text<br/>(not available on mobile)</label>
-      </div>
-    </section>
-    <div id="footer">
-      <div id="footer-left">
-        <a id="goto-indicen" target="_blank" href="/options.html">Indic-En ▶️</a>
-      </div>
-      <div id="footer-right">
-        <a id="goto-donate" target="_blank" href="https://subinsb.com/donate" title="Support this project">Donate ❤️</a>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Popup</title>
+  <link rel="stylesheet" href="css/popup.css" />
+</head>
+
+<body>
+  <section id="popup">
+    <select id="lang">
+      <option value="ml">Malayalam</option>
+      <option value="hi">Hindi</option>
+      <option value="kn">Kannada</option>
+    </select><br />
+    <button type="button" id="transliterate">Transliterate</button>
+    <button type="button" id="untransliterate">Restore</button><br /><br />
+    <div class="checkbox_holder">
+      <input type="checkbox" id="auto_transliterate" />
+      <label for="auto_transliterate">Auto Transliterate on page load</label>
+    </div><br />
+    <div class="checkbox_holder">
+      <input type="checkbox" id="overlay" />
+      <label for="overlay">Show Overlays with original text<br />(not available on mobile)</label>
     </div>
-  </body>
+  </section>
+  <div id="footer">
+    <div id="footer-left">
+      <a id="goto-indicen" target="_blank" href="/options.html">Indic-En ▶️</a>
+    </div>
+    <div id="footer-right">
+      <a id="goto-donate" target="_blank" href="https://subinsb.com/donate" title="Support this project">Donate ❤️</a>
+    </div>
+  </div>
+</body>
+
 </html>
