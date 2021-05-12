@@ -9,6 +9,8 @@
 
 import Transliterator from 'libindic-transliteration';
 
+import '../styles/options.scss';
+
 var form = document.getElementById('transliterate-form');
 form.onsubmit = function(e) {
     e.preventDefault();

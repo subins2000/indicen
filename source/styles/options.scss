@@ -3,6 +3,8 @@
 @import "base/variables";
 @import "popup";
 
+@import "~webext-base-css/webext-base.css";
+
 body {
   font-size: 1rem;
   line-height: 175%;

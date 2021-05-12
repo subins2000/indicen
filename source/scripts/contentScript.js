@@ -11,7 +11,10 @@ import browser from 'webextension-polyfill';
 import Transliterator from 'libindic-transliteration';
 import Tooltip from './tooltip.js';
 
+import '../styles/contentStyle.scss';
 
+
+console.log("aa");
 var t,
     debug = sessionStorage.getItem('indicen_debug') || false,
     transliterated_webpage = false,
