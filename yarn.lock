@@ -2864,9 +2864,9 @@ fast-levenshtein@~2.0.6:
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
 
 figgy-pudding@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.1.tgz#862470112901c727a0e495a80744bd5baa1d6790"
-  integrity sha512-vNKxJHTEKNThjfrdJwHc7brvM6eVevuO5nTj6ez8ZQ1qbXTvGthucRF7S4vf2cr71QVnT70V34v0S1DyQsti0w==
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.2.tgz#b4eee8148abb01dcf1d1ac34367d59e12fa61d6e"
+  integrity sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==
 
 figures@^3.0.0:
   version "3.2.0"
@@ -4001,10 +4001,10 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-libindic-transliteration@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/libindic-transliteration/-/libindic-transliteration-1.0.0.tgz#160f077b22537361ad29b88ff4c8907ee8e001e0"
-  integrity sha512-oAkulfKGUJogMa5kY+EDTec82gVaFjVk1869anvl51R9WYxiFTkTO36DSfLyw0gf/9eh69m0M6nN0YhvlUXjzg==
+libindic-transliteration@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/libindic-transliteration/-/libindic-transliteration-1.2.0.tgz#7e84ce5952c2d9deb3468c87f84bf9836ef80d24"
+  integrity sha512-2AZTxhsfTF0vYRGKORpY+6/gob8IRvQi9gjNY9Z34KvPK7uZN9LnMJzi2PQhsTSdf/g8fhVMpIuE87KatAEgmg==
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -5922,9 +5922,9 @@ sshpk@^1.7.0:
     tweetnacl "~0.14.0"
 
 ssri@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.1.tgz#2a3c41b28dd45b62b63676ecb74001265ae9edd8"
-  integrity sha512-3Wge10hNcT1Kur4PDFwEieXSCMCJs/7WvSACcrMYrNp+b8kDL1/0wJch5Ni2WrtwEa2IO8OsVfeKIciKCDx/QA==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.2.tgz#157939134f20464e7301ddba3e90ffa8f7728ac5"
+  integrity sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==
   dependencies:
     figgy-pudding "^3.5.1"
 
