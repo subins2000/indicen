@@ -4001,10 +4001,10 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-libindic-transliteration@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/libindic-transliteration/-/libindic-transliteration-1.0.0.tgz#160f077b22537361ad29b88ff4c8907ee8e001e0"
-  integrity sha512-oAkulfKGUJogMa5kY+EDTec82gVaFjVk1869anvl51R9WYxiFTkTO36DSfLyw0gf/9eh69m0M6nN0YhvlUXjzg==
+libindic-transliteration@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/libindic-transliteration/-/libindic-transliteration-1.2.0.tgz#7e84ce5952c2d9deb3468c87f84bf9836ef80d24"
+  integrity sha512-2AZTxhsfTF0vYRGKORpY+6/gob8IRvQi9gjNY9Z34KvPK7uZN9LnMJzi2PQhsTSdf/g8fhVMpIuE87KatAEgmg==
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -4084,9 +4084,9 @@ locate-path@^5.0.0:
     p-locate "^4.1.0"
 
 lodash@^4.0.0, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.3, lodash@~4.17.12:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 loose-envify@^1.0.0, loose-envify@^1.4.0:
   version "1.4.0"
