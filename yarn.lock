@@ -4001,10 +4001,10 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-libindic-transliteration@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/libindic-transliteration/-/libindic-transliteration-1.0.0.tgz#160f077b22537361ad29b88ff4c8907ee8e001e0"
-  integrity sha512-oAkulfKGUJogMa5kY+EDTec82gVaFjVk1869anvl51R9WYxiFTkTO36DSfLyw0gf/9eh69m0M6nN0YhvlUXjzg==
+libindic-transliteration@^1.1.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/libindic-transliteration/-/libindic-transliteration-1.2.0.tgz#7e84ce5952c2d9deb3468c87f84bf9836ef80d24"
+  integrity sha512-2AZTxhsfTF0vYRGKORpY+6/gob8IRvQi9gjNY9Z34KvPK7uZN9LnMJzi2PQhsTSdf/g8fhVMpIuE87KatAEgmg==
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -6733,9 +6733,9 @@ xtend@^4.0.0, xtend@~4.0.1:
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
 y18n@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.1.tgz#6d15fba884c08679c0d77e88e7759e811e07fa41"
-  integrity sha1-bRX7qITAhnnA136I53WegR4H+kE=
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/y18n/-/y18n-3.2.2.tgz#85c901bd6470ce71fc4bb723ad209b70f7f28696"
+  integrity sha512-uGZHXkHnhF0XeeAPgnKfPv1bgKAYyVvmNL1xlKsPYZPaIHxGti2hHqvOCQv71XMsLxu1QjergkqogUnms5D3YQ==
 
 y18n@^4.0.0:
   version "4.0.0"
