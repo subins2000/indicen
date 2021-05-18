@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Options</title>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Indic-En</h1>
+      <p>Convert Malayalam, Hindi, Kannada webpages to Manglish, Hinglish, Kanglish. <a href="//subinsb.com/indicen/">More about Indic-En</a></p>
+      <div>
+        <div class="block with-logo">
+          <img src="assets/icons/favicon.svg" width="100%" />
+        </div>
+        <div class="block with-text">
+          <h2>About</h2>
+          <p>
+            This extension was made with ❤️ by <a href="https://subinsb.com/">Subin Siby</a>. [<a href="https://twitter.com/SubinSiby">Twitter</a>, <a href="https://www.instagram.com/subins2000">Instagram</a>]<br/>
+            Check out my <a href="https://subinsb.com/manglish">Android app Manglish</a> for Malayalam to Manglish conversion in your phone. <a href="https://subinsb.com/donate/" target="_blank"><button type="button">Support My Work :)</button></a>
+          </p>
+          <h3>Thanks</h3>
+          <ul>
+            <li><a href="https://nadh.in/code/ml2en/">ml2en</a> : <a href="https://nadh.in/">Kailash Nadh</a></li>
+            <li><a href="https://libindic.org/Transliteration">libindic</a> : <a href="https://thottingal.in/">Santhosh Thottingal</a></li>
+            <li><a href="https://libindic.org/Transliteration">libindic</a> : <a href="https://copyninja.info/">Vasudev Kamath</a></li>
+            <li><a href="https://twitter.com/AkshayTG3">Akshay TG</a> for this beautiful logo</li>
+          </ul>
+        </div>
+      </div>
+      <h2>Transliterator</h2>
+      <p>Transliterate from Malayalam, Hindi, Kannada to English/Latin/Roman script. Convert to Manglish, Hinglish, Kanglish. This works directly in the browser. An online version of this is <a href="https://demos.subinsb.com/indicen/">available here</a>. See <a href="https://libindic.org/Transliteration">libindic's Transliterator</a> for more language support, but text is processed in the server though (Python).</p>
+      <form id="transliterate-form">
+        <textarea class="materialize-textarea" id="input" placeholder="Paste text here..."></textarea>
+        <label>Language:</label>
+        <select class="browser-default" id="lang">
+          <option value="ml">Malayalam</option>
+          <option value="hi">Hindi</option>
+          <option value="kn">Kannada</option>
+        </select><br/><br/>
+        <button class="btn">Transliterate</button>
+      </form>
+      <textarea class="materialize-textarea" id="output" placeholder="Output will be shown here..." readonly="readonly"></textarea>
+    </div>
+  </body>
+</html>
