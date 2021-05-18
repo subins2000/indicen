@@ -18,13 +18,14 @@ Install the extension and you'll see Indic-En icon on your browser toolbar. Clic
 ## Development Setup
 
 * Clone
-* `yarn install`
-* `yarn run dev:firefox` to start the development server for firefox addon
+* `npm install`
+* `npm run dev:firefox` to start the development server for firefox addon
+* `npm run build:firefox` to build `.xpi`
 
 My dev setup :
 
 * OS : `Linux Mint 19 [Ubuntu 18.04 LTS]`
-* node : `10.19.0`
-* npm : `6.13.4`
+* node : `14.17.0`
+* npm : `6.14.13`
 
 But it'll work on majority others too.
